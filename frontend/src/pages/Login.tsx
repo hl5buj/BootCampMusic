@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { Music } from 'lucide-react';
 import api from '../api';
 
 const Login: React.FC = () => {
@@ -78,7 +79,15 @@ const Login: React.FC = () => {
     return (
         <div className="flex items-center justify-center min-h-[80vh]">
             <div className="bg-gray-900 p-8 rounded-lg w-full max-w-md">
-                <h2 className="text-3xl font-bold mb-6 text-center">{isLogin ? 'Log in to MusicDown' : 'Sign up for free'}</h2>
+                <div className="text-center mb-8">
+                    <Link to="/" className="inline-flex items-center gap-2 text-primary text-3xl font-bold mb-2">
+                        <Music size={40} />
+                        Takbon MusicTown
+                    </Link>
+                    <p className="text-gray-400">Sign in to continue to your music</p>
+                </div>
+
+                <h2 className="text-2xl font-bold mb-6 text-center">{isLogin ? 'Log In' : 'Sign Up'}</h2>
 
                 {error && <div className="bg-red-500/20 text-red-500 p-3 rounded mb-4 text-sm">{error}</div>}
 

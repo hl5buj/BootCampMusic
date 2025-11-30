@@ -51,12 +51,10 @@ const Navbar: React.FC = () => {
             <div className="container mx-auto flex justify-between items-center">
                 <Link to="/" className="flex items-center space-x-2 text-primary font-bold text-xl">
                     <Music size={28} />
-                    <span>MusicDown</span>
+                    <span>Takbon MusicTown</span>
                 </Link>
 
                 <div className="flex items-center space-x-6">
-                    {/* Links removed as per request */}
-
                     {token ? (
                         <>
                             <Link to="/dashboard" className="flex items-center space-x-1 hover:text-primary transition">
@@ -98,4 +96,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-

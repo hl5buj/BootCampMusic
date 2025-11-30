@@ -1,0 +1,1001 @@
+[
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$jmV6EHoVPz225SLcyUgkWB$Ea00aX9tJnxAy4ttWhUwDDme5Y6sBKW2BWdygtawqcY=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser123",
+        "first_name": "",
+        "last_name": "",
+        "email": "testuser123@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-21T17:29:54.768Z",
+        "bio": "",
+        "profile_picture": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$MfayCIiLif1e4rmNGZmKcw$zHlfxEFAVq5emC1bVmH8ft1ep7Obp1yMTK6kwn0PHYk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser456",
+        "first_name": "",
+        "last_name": "",
+        "email": "testuser456@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-21T17:34:17.757Z",
+        "bio": "",
+        "profile_picture": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$byqBbxB2DXPNi2Qasw3WZp$SdZX87/h3vy1/UXv4Tp5UO7X5SEp8c8ZTTAtUyfSY9s=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "hl5buj",
+        "first_name": "",
+        "last_name": "",
+        "email": "hl5buj@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-24T15:52:37.397Z",
+        "bio": "",
+        "profile_picture": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$Ij5uTC8ScbioUzpK9eHtMX$L47X8X6n09AKEnpJnfy8hWPjarfJWzeO/RXWN80OqdY=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@musicdown.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-11-24T15:56:59.543Z",
+        "bio": "",
+        "profile_picture": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$1JFjMYhdO2gTIwz1rOpVZA$iwKCZ/0STE1Rh+eetTJ1cQ4b/Y6b1lyzfHYx4wuD2lA=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testadmin",
+        "first_name": "",
+        "last_name": "",
+        "email": "testadmin@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-11-25T12:09:58.298Z",
+        "bio": "",
+        "profile_picture": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$RjDMT8HD5tfWWqPEPBIBzy$CHQYI2HsFH9VMMtvy8VXImvfWwk4f4hTta+yG/XIEQI=",
+        "last_login": "2025-11-27T04:42:04.081Z",
+        "is_superuser": true,
+        "username": "takbon",
+        "first_name": "",
+        "last_name": "",
+        "email": "takbon@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-11-25T12:15:15.231Z",
+        "bio": "",
+        "profile_picture": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 1,
+    "fields": {
+        "name": "The Beatles",
+        "bio": "Legendary British rock band",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 2,
+    "fields": {
+        "name": "Queen",
+        "bio": "British rock band formed in London",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 3,
+    "fields": {
+        "name": "Pink Floyd",
+        "bio": "English rock band",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 4,
+    "fields": {
+        "name": "클래식 작곡가",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 5,
+    "fields": {
+        "name": "나훈아",
+        "bio": "트로트",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 6,
+    "fields": {
+        "name": "조용필",
+        "bio": "75세",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 7,
+    "fields": {
+        "name": "Crush",
+        "bio": "본명: 신효섭 (申孝燮[훈음], Sin Hyo-sub)\t\r\n생일: 1992년 5월 3일 \r\n소속사: P NATION\r\n예명을 크러쉬(Crush)로 지은 이유는 크러쉬(Crush)의 뜻인 '의깨다, 부수다, 반하다'는 뜻에서 착안",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 8,
+    "fields": {
+        "name": "Led Zeppelin",
+        "bio": "English rock band formed in London",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 9,
+    "fields": {
+        "name": "Unknown Artist",
+        "bio": "Various artists",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 10,
+    "fields": {
+        "name": "김광석",
+        "bio": "싱어송라이터\r\n출생 1964년 1월 22일\r\n데뷔 1984년 5월 31일 노래를 찾는 사람들 1집",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 11,
+    "fields": {
+        "name": "크러쉬 ",
+        "bio": "Legendary British rock band",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 12,
+    "fields": {
+        "name": "Cho Yong-pil",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 13,
+    "fields": {
+        "name": "Yang Hee Eun, LEE SEUNG YOON, Jeong Hongil, LEE Mujin & 이소정",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 14,
+    "fields": {
+        "name": "Kang Saneh",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 15,
+    "fields": {
+        "name": "Michael Jackson",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 16,
+    "fields": {
+        "name": "Choi Beck Ho",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 17,
+    "fields": {
+        "name": "Sanullim",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 18,
+    "fields": {
+        "name": "Lee Mija",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 19,
+    "fields": {
+        "name": "Kim Kwang Seok",
+        "bio": "싱어송라이터\r\n출생 1964년 1월 22일\r\n데뷔 1984년 5월 31일 노래를 찾는 사람들 1집",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 20,
+    "fields": {
+        "name": "Chang Kiha",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 21,
+    "fields": {
+        "name": "Lee Eun Mi",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 22,
+    "fields": {
+        "name": "South German Philharmonic Orchestra & Bernhard Güller",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 23,
+    "fields": {
+        "name": "Eagles",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.artist",
+    "pk": 24,
+    "fields": {
+        "name": "No Sa Yeon",
+        "bio": "",
+        "image": ""
+    }
+},
+{
+    "model": "music.album",
+    "pk": 1,
+    "fields": {
+        "title": "Abbey Road",
+        "artist": 1,
+        "release_date": "1969-09-26",
+        "cover_image": ""
+    }
+},
+{
+    "model": "music.album",
+    "pk": 2,
+    "fields": {
+        "title": "A Night at the Opera",
+        "artist": 2,
+        "release_date": "1975-11-21",
+        "cover_image": ""
+    }
+},
+{
+    "model": "music.album",
+    "pk": 3,
+    "fields": {
+        "title": "The Dark Side of the Moon",
+        "artist": 3,
+        "release_date": "1973-03-01",
+        "cover_image": ""
+    }
+},
+{
+    "model": "music.album",
+    "pk": 4,
+    "fields": {
+        "title": "특집 1판",
+        "artist": 4,
+        "release_date": "2025-11-25",
+        "cover_image": "albums/animals_photo.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 5,
+    "fields": {
+        "title": "나훈아 특집 1집",
+        "artist": 5,
+        "release_date": "2025-11-25",
+        "cover_image": "albums/a-vibrant-anideogram_1.jpeg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 6,
+    "fields": {
+        "title": "조용필 30주년",
+        "artist": 6,
+        "release_date": "2025-11-27",
+        "cover_image": "albums/조용필_프로필.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 7,
+    "fields": {
+        "title": "이태원클라쓰 수록곡",
+        "artist": 7,
+        "release_date": "2025-11-23",
+        "cover_image": "albums/Crush_profile.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 8,
+    "fields": {
+        "title": "Greatest Hits",
+        "artist": 9,
+        "release_date": "1980-01-01",
+        "cover_image": "albums/a-vibrant-anideogram_1.jpeg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 9,
+    "fields": {
+        "title": "Summer Vibes",
+        "artist": 8,
+        "release_date": "2023-06-15",
+        "cover_image": "albums/animals_photo.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 10,
+    "fields": {
+        "title": "Classic Rock",
+        "artist": 9,
+        "release_date": "1975-11-21",
+        "cover_image": "albums/Crush_profile.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 11,
+    "fields": {
+        "title": "Chill Mix",
+        "artist": 9,
+        "release_date": "2024-01-01",
+        "cover_image": "albums/조용필_프로필.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 12,
+    "fields": {
+        "title": "Greatest Hits",
+        "artist": 1,
+        "release_date": "1980-01-01",
+        "cover_image": ""
+    }
+},
+{
+    "model": "music.album",
+    "pk": 13,
+    "fields": {
+        "title": "Greatest Hits",
+        "artist": 8,
+        "release_date": "1980-01-01",
+        "cover_image": "albums/a-vibrant-anideogram_1.jpeg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 14,
+    "fields": {
+        "title": "Summer Vibes",
+        "artist": 2,
+        "release_date": "2023-06-15",
+        "cover_image": "albums/animals_photo.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 15,
+    "fields": {
+        "title": "Classic Rock",
+        "artist": 3,
+        "release_date": "1975-11-21",
+        "cover_image": "albums/Crush_profile.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 16,
+    "fields": {
+        "title": "Chill Mix",
+        "artist": 3,
+        "release_date": "2024-01-01",
+        "cover_image": "albums/조용필_프로필.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 17,
+    "fields": {
+        "title": "가요 모음 Part 1",
+        "artist": 10,
+        "release_date": "1975-11-21",
+        "cover_image": "albums/김광석_프로필_9xnZSFm.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 18,
+    "fields": {
+        "title": "Summer Vibes",
+        "artist": 11,
+        "release_date": "2023-06-15",
+        "cover_image": "albums/Crush_profile_s2QDu5T.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 19,
+    "fields": {
+        "title": "가요모음 Part 1",
+        "artist": 10,
+        "release_date": "2025-11-27",
+        "cover_image": "albums/김광석_프로필_YZGUe50.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 20,
+    "fields": {
+        "title": "나훈아 특집 앨범",
+        "artist": 5,
+        "release_date": "2023-06-15",
+        "cover_image": "albums/나훈아_프로필.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 21,
+    "fields": {
+        "title": "1985년 발표 《조용필 8집》 타이틀곡",
+        "artist": 6,
+        "release_date": "2025-11-27",
+        "cover_image": "albums/조용필_프로필_wbdgjr3.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 22,
+    "fields": {
+        "title": "Hello",
+        "artist": 12,
+        "release_date": "2013-01-01",
+        "cover_image": "albums/cover_D45WQs9.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 23,
+    "fields": {
+        "title": "Famous Singers, Pt. 1 (From the \"JTBC\" TV SHOW) - EP",
+        "artist": 13,
+        "release_date": "2021-04-17",
+        "cover_image": "albums/cover_yMLKIkp.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 24,
+    "fields": {
+        "title": "연어",
+        "artist": 14,
+        "release_date": "1998-03-01",
+        "cover_image": "albums/cover_ynnwgx3.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 25,
+    "fields": {
+        "title": "Thriller",
+        "artist": 15,
+        "release_date": "1982-11-29",
+        "cover_image": "albums/cover_ApNJHY3.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 26,
+    "fields": {
+        "title": "Choi Baek Ho History: Cheongsapo",
+        "artist": 16,
+        "release_date": "2003-06-01",
+        "cover_image": "albums/cover_7Rx3W0H.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 27,
+    "fields": {
+        "title": "Sanullim Vol. 6 - Please Wait A Little Longer",
+        "artist": 17,
+        "release_date": "1980-05-05",
+        "cover_image": "albums/cover_f390HqM.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 28,
+    "fields": {
+        "title": "Lee MiJa Song 30 Years 2.",
+        "artist": 18,
+        "release_date": "1990-01-01",
+        "cover_image": "albums/cover_uG3xKDD.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 29,
+    "fields": {
+        "title": "Jo YongPil 8",
+        "artist": 12,
+        "release_date": "1985-10-01",
+        "cover_image": "albums/cover_0EdJjKT.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 30,
+    "fields": {
+        "title": "ITAEWON CLASS (Original Television Soundtrack), Pt. 11 - Single",
+        "artist": 7,
+        "release_date": "2020-03-07",
+        "cover_image": "albums/cover.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 31,
+    "fields": {
+        "title": "김광석 '나의 노래' BOX SET (Remastered)",
+        "artist": 19,
+        "release_date": "1994-06-25",
+        "cover_image": "albums/cover_PDuZN1k.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 32,
+    "fields": {
+        "title": "Cheap Coffee - Single",
+        "artist": 20,
+        "release_date": "2008-05-10",
+        "cover_image": "albums/cover_ztmRZ6w.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 33,
+    "fields": {
+        "title": "Lee Eun Mee The Best Collection : 2000~2011",
+        "artist": 21,
+        "release_date": "2005-10-24",
+        "cover_image": "albums/cover_P3hyGXA.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 34,
+    "fields": {
+        "title": "Concert Series: Beethoven - Concerto for Piano and Orchestra No. 3 and Symphony No. 5",
+        "artist": 22,
+        "release_date": "2005-09-15",
+        "cover_image": "albums/cover_6oReEQY.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 35,
+    "fields": {
+        "title": "Hotel California",
+        "artist": 23,
+        "release_date": "1976-12-08",
+        "cover_image": "albums/cover_V9EqHAa.jpg"
+    }
+},
+{
+    "model": "music.album",
+    "pk": 36,
+    "fields": {
+        "title": "2007 노사연, 사랑",
+        "artist": 24,
+        "release_date": "2007-12-07",
+        "cover_image": "albums/cover_sfvRpxO.jpg"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 24,
+    "fields": {
+        "title": "The empty sky (허공)",
+        "album": 29,
+        "artist": 12,
+        "file": "tracks/101_jJiVdnK._허공.flac",
+        "preview_file": "tracks/101._허공.flac",
+        "duration": 180,
+        "genre": "Pop",
+        "created_at": "2025-11-27T03:44:06.497Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 28,
+    "fields": {
+        "title": "어떤 말도",
+        "album": 30,
+        "artist": 7,
+        "file": "tracks/Crush_크러쉬_-_어떤_말도_-_utoranking.com.flac",
+        "preview_file": "tracks/Crush_크러쉬_-_어떤_말도_-_utoranking.com.flac",
+        "duration": 180,
+        "genre": "TV Soundtrack",
+        "created_at": "2025-11-27T03:44:06.892Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 35,
+    "fields": {
+        "title": "간다 이거지",
+        "album": 20,
+        "artist": 5,
+        "file": "tracks/나훈아-간다_이거지.flac",
+        "preview_file": "tracks/나훈아-간다_이거지.flac",
+        "duration": 180,
+        "genre": "trot",
+        "created_at": "2025-11-27T03:44:07.725Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 36,
+    "fields": {
+        "title": "이등병의 편지",
+        "album": 31,
+        "artist": 19,
+        "file": "tracks/CD1-03-이등병의_편지flac16.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "K-Pop",
+        "created_at": "2025-11-27T05:17:31.115Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 37,
+    "fields": {
+        "title": "Bounce",
+        "album": 22,
+        "artist": 12,
+        "file": "tracks/042_조용필_19집_-_01_Bounce.mp3",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Rock",
+        "created_at": "2025-11-27T12:09:40.313Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 38,
+    "fields": {
+        "title": "An Unfinished Song(못다한 노래)",
+        "album": 23,
+        "artist": 13,
+        "file": "tracks/01_못다한_노래.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "K-Pop",
+        "created_at": "2025-11-27T12:17:27.851Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 39,
+    "fields": {
+        "title": "거꾸로 강을 거슬러 오르는 저 힘찬 연어들처럼",
+        "album": 24,
+        "artist": 14,
+        "file": "tracks/01_-_거꾸로_강을_거슬러_오르는_저_힘찬_연어들처럼.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "K-Pop",
+        "created_at": "2025-11-27T12:32:16.727Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 40,
+    "fields": {
+        "title": "Billie Jean",
+        "album": 25,
+        "artist": 15,
+        "file": "tracks/02_-_Billy_Jean.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Pop",
+        "created_at": "2025-11-27T12:38:55.313Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 41,
+    "fields": {
+        "title": "About Romance (1995) (낭만에 대하여)",
+        "album": 26,
+        "artist": 16,
+        "file": "tracks/12_낭만에_대하여.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "K-Pop",
+        "created_at": "2025-11-27T12:56:01.062Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 42,
+    "fields": {
+        "title": "A Teacup(찻잔)",
+        "album": 27,
+        "artist": 17,
+        "file": "tracks/11_-_찻잔.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Rock",
+        "created_at": "2025-11-27T13:10:29.850Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 43,
+    "fields": {
+        "title": "Island Village Teacher(섬마을 선생님)",
+        "album": 28,
+        "artist": 18,
+        "file": "tracks/이미자-01-섬마을_선생님.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Pop",
+        "created_at": "2025-11-27T13:15:58.729Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 44,
+    "fields": {
+        "title": "Cheap Coffee (싸구려 커피)",
+        "album": 32,
+        "artist": 20,
+        "file": "tracks/01_싸구려_커피.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Rock",
+        "created_at": "2025-11-27T16:42:22.987Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 45,
+    "fields": {
+        "title": "서른 즈음에",
+        "album": 31,
+        "artist": 19,
+        "file": "tracks/CD2-05-서른_즈음에flac16.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "K-Pop",
+        "created_at": "2025-11-27T16:45:34.804Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 46,
+    "fields": {
+        "title": "애인…있어요",
+        "album": 33,
+        "artist": 21,
+        "file": "tracks/03._애인...있어요.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "K-Pop",
+        "created_at": "2025-11-27T16:48:19.935Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 47,
+    "fields": {
+        "title": "Symphony No. 5 in C Minor, Op. 67 (Fate): I. Allegro con brio",
+        "album": 34,
+        "artist": 22,
+        "file": "tracks/Beethoven_-_01_Symphony_No.5_In_C_Minor_Op.671.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Classical",
+        "created_at": "2025-11-27T16:54:52.290Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 48,
+    "fields": {
+        "title": "Hotel California",
+        "album": 35,
+        "artist": 23,
+        "file": "tracks/17.-Hotel_California.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Rock",
+        "created_at": "2025-11-27T17:00:12.696Z"
+    }
+},
+{
+    "model": "music.track",
+    "pk": 49,
+    "fields": {
+        "title": "만남",
+        "album": 36,
+        "artist": 24,
+        "file": "tracks/53._노사연-만남.flac",
+        "preview_file": "",
+        "duration": 0,
+        "genre": "Pop",
+        "created_at": "2025-11-27T17:04:45.336Z"
+    }
+},
+{
+    "model": "music.downloadlog",
+    "pk": 12,
+    "fields": {
+        "user": [
+            "takbon"
+        ],
+        "track": 37,
+        "downloaded_at": "2025-11-27T12:10:49.148Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "08fc0a0929e41afa7f297b11db910ca4a27d49ce",
+    "fields": {
+        "user": [
+            "takbon"
+        ],
+        "created": "2025-11-25T12:16:16.881Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "399fe1ecf512805e3cae370b41cfffba353c61c9",
+    "fields": {
+        "user": [
+            "testadmin"
+        ],
+        "created": "2025-11-25T12:09:59.096Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "5b46667bf6eea4de56728ecc2e4c00064f75b034",
+    "fields": {
+        "user": [
+            "testuser456"
+        ],
+        "created": "2025-11-21T17:34:29.158Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "6c838546f1533e09d62698a71f3e94c91cd6e999",
+    "fields": {
+        "user": [
+            "testuser123"
+        ],
+        "created": "2025-11-21T17:32:51.194Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "b1e677668d10ec29fe41b9c6f74c774fd8f744db",
+    "fields": {
+        "user": [
+            "hl5buj"
+        ],
+        "created": "2025-11-24T15:52:50.582Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "d7da2e3f6055c0cbd7d58ac6f1269b15e425fae8",
+    "fields": {
+        "user": [
+            "admin"
+        ],
+        "created": "2025-11-24T16:00:18.608Z"
+    }
+}
+]

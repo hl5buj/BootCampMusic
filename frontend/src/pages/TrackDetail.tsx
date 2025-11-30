@@ -104,7 +104,7 @@ const TrackDetail: React.FC = () => {
                 return;
             }
 
-            const downloadUrl = `http://localhost:8000/api/music/tracks/${id}/download/`;
+            const downloadUrl = `${API_BASE_URL}/music/tracks/${id}/download/`;
 
             const response = await fetch(downloadUrl, {
                 headers: {
