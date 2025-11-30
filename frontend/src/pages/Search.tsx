@@ -46,7 +46,6 @@ const Search: React.FC = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchResults>({ tracks: [], artists: [], albums: [] });
     const [loading, setLoading] = useState(false);
-    const [hoveredTrackId, setHoveredTrackId] = useState<number | null>(null);
     const hoverTimeoutRef = useRef<number | null>(null);
 
     const { playTrack, currentTrack, isPlaying } = useMusicPlayer();
@@ -91,8 +90,6 @@ const Search: React.FC = () => {
     const hasResults = results.tracks.length > 0 || results.artists.length > 0 || results.albums.length > 0;
 
     const handleTrackHover = (track: Track) => {
-        setHoveredTrackId(track.id);
-
         // Clear any existing timeout
         if (hoverTimeoutRef.current) {
             clearTimeout(hoverTimeoutRef.current);
@@ -105,8 +102,6 @@ const Search: React.FC = () => {
     };
 
     const handleTrackLeave = () => {
-        setHoveredTrackId(null);
-
         // Clear timeout if user stops hovering before 500ms
         if (hoverTimeoutRef.current) {
             clearTimeout(hoverTimeoutRef.current);
