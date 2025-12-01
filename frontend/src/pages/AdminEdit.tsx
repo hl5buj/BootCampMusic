@@ -26,6 +26,8 @@ interface Track {
     album: Album;
     file?: string;
     preview_file?: string;
+    file_url?: string;
+    preview_file_url?: string;
     genre?: string;
 }
 
@@ -75,8 +77,8 @@ const AdminEdit: React.FC = () => {
                     genre: data.genre || ''
                 });
                 setCurrentCoverUrl(data.album.cover_image || null);
-                setCurrentFileUrl(data.file || null);
-                setCurrentPreviewFileUrl(data.preview_file || null);
+                setCurrentFileUrl(data.file_url || data.file || null);
+                setCurrentPreviewFileUrl(data.preview_file_url || data.preview_file || null);
                 setLoading(false);
             } catch (err) {
                 console.error('Failed to load track', err);

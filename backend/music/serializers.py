@@ -47,13 +47,25 @@ class TrackDetailSerializer(serializers.ModelSerializer):
     artist = ArtistSerializer(read_only=True)
     album = AlbumSerializer(read_only=True)
     download_count = serializers.SerializerMethodField()
+    file_url = serializers.SerializerMethodField()
+    preview_file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Track
         fields = '__all__'
-    
+
     def get_download_count(self, obj):
         return obj.downloads.count()
+
+    def get_file_url(self, obj):
+        if obj.file:
+            return obj.file.url
+        return None
+
+    def get_preview_file_url(self, obj):
+        if obj.preview_file:
+            return obj.preview_file.url
+        return None
 
 # Alias for backward compatibility
 TrackSerializer = TrackListSerializer
