@@ -184,47 +184,108 @@ class TrackUploadView(APIView):
     permission_classes = [permissions.IsAdminUser]
     
     def post(self, request):
-        # 1. Get or create the Artist
-        # We check if the artist exists by name, if not create a new one.
-        artist_name = request.data.get('artist_name')
-        artist, _ = Artist.objects.get_or_create(
-            name=artist_name,
-            defaults={'bio': request.data.get('artist_bio', '')}
-        )
+        import logging
+        logger = logging.getLogger(__name__)
         
-        # 2. Get or create the Album
-        # Albums are linked to the artist.
-        album_title = request.data.get('album_title')
-        album, _ = Album.objects.get_or_create(
-            title=album_title,
-            artist=artist,
-            defaults={
-                'release_date': request.data.get('release_date', '2024-01-01')
-            }
-        )
-        
-        # 3. Create the Track
-        # Create the track instance with the uploaded files and metadata.
-        track = Track.objects.create(
-            title=request.data.get('title'),
-            artist=artist,
-            album=album,
-            file=request.FILES.get('file'),
-            preview_file=request.FILES.get('preview_file'),
-            duration=int(request.data.get('duration', 0)),
-            genre=request.data.get('genre', '')
-        )
-        
-        # 4. Handle Album Cover
-        # If an album cover is provided, update the album's cover image.
-        if 'album_cover' in request.FILES:
-            album.cover_image = request.FILES['album_cover']
-            album.save()
-        
-        return Response(
-            TrackDetailSerializer(track).data,
-            status=status.HTTP_201_CREATED
-        )
+        try:
+            # 1. Get or create the Artist
+            artist_name = request.data.get('artist_name')
+            logger.info(f"Creating/getting artist: {artist_name}")
+            artist, _ = Artist.objects.get_or_create(
+                name=artist_name,
+                defaults={'bio': request.data.get('artist_bio', '')}
+            )
+            
+            # 2. Get or create the Album
+            album_title = request.data.get('album_title')
+            logger.info(f"Creating/getting album: {album_title}")
+            album, _ = Album.objects.get_or_create(
+                title=album_title,
+                artist=artist,
+                defaults={
+                    'release_date': request.data.get('release_date', '2024-01-01')
+                }
+            )
+            
+            # 3. Create the Track
+            track_title = request.data.get('title')
+            logger.info(f"Creating track: {track_title}")
+            
+            # Check if files are present
+            if 'file' not in request.FILES:
+                logger.error("No music file provided in upload")
+                return Response(
+                    {"error": "Music file is required"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            music_file = request.FILES.get('file')
+            logger.info(f"Music file: {music_file.name}, size: {music_file.size} bytes")
+            
+            try:
+                track = Track.objects.create(
+                    title=track_title,
+                    artist=artist,
+                    album=album,
+                    file=music_file,
+                    preview_file=request.FILES.get('preview_file'),
+                    duration=int(request.data.get('duration', 0)),
+                    genre=request.data.get('genre', '')
+                )
+                logger.info(f"Track created successfully. File path: {track.file.name if track.file else 'None'}")
+            except Exception as e:
+                logger.error(f"Failed to create track: {str(e)}", exc_info=True)
+                return Response(
+                    {"error": f"Failed to upload track: {str(e)}"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+            
+            # 4. Handle Album Cover
+            if 'album_cover' in request.FILES:
+                logger.info("Uploading album cover from file")
+                try:
+                    album.cover_image = request.FILES['album_cover']
+                    album.save()
+                    logger.info(f"Album cover saved: {album.cover_image.name if album.cover_image else 'None'}")
+                except Exception as e:
+                    logger.error(f"Failed to save album cover: {str(e)}", exc_info=True)
+            elif 'album_cover_url' in request.data:
+                logger.info(f"Downloading album cover from URL: {request.data['album_cover_url']}")
+                try:
+                    import requests
+                    from django.core.files.base import ContentFile
+                    from django.utils.text import slugify
+                    
+                    image_url = request.data['album_cover_url']
+                    response = requests.get(image_url, timeout=10)
+                    if response.status_code == 200:
+                        # Use slugify to create a safe filename for S3
+                        safe_filename = slugify(album.title) or "album-cover"
+                        file_name = f"{safe_filename}.jpg"
+                        
+                        album.cover_image.save(
+                            file_name,
+                            ContentFile(response.content),
+                            save=True
+                        )
+                        logger.info(f"Album cover downloaded and saved: {album.cover_image.name}")
+                    else:
+                        logger.warning(f"Failed to download cover image: HTTP {response.status_code}")
+                except Exception as e:
+                    logger.error(f"Failed to download cover image: {str(e)}", exc_info=True)
+            
+            logger.info(f"Upload completed successfully for track: {track.title}")
+            return Response(
+                TrackDetailSerializer(track).data,
+                status=status.HTTP_201_CREATED
+            )
+            
+        except Exception as e:
+            logger.error(f"Unexpected error in track upload: {str(e)}", exc_info=True)
+            return Response(
+                {"error": f"Upload failed: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 class ArtistCreateView(generics.CreateAPIView):
     """Create a new artist (admin only)"""

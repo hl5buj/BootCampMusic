@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../api';
-import { searchItunes, urlToFile } from '../utils/itunes';
+import { searchItunes } from '../utils/itunes';
 import { Upload, Music, User, Disc, Calendar, Clock, Sparkles } from 'lucide-react';
 
 const AdminUpload: React.FC = () => {
@@ -28,6 +28,8 @@ const AdminUpload: React.FC = () => {
         album_cover: null
     });
 
+    const [albumCoverUrl, setAlbumCoverUrl] = useState<string | null>(null);
+
     const handleAutoFill = async () => {
         if (!formData.title && !formData.artist_name) {
             alert("Please enter at least a Track Title or Artist Name to search.");
@@ -48,24 +50,11 @@ const AdminUpload: React.FC = () => {
                     album_title: result.collectionName,
                     release_date: result.releaseDate.split('T')[0],
                     genre: result.primaryGenreName || ''
-                    // iTunes doesn't give duration in seconds easily in this endpoint sometimes, 
-                    // or gives it in millis. Let's check. 
-                    // Actually result usually has trackTimeMillis.
-                    // Let's assume user still needs to verify duration or file length.
                 }));
 
                 // Try to get high-res artwork (replace 100x100 with 600x600)
                 const highResUrl = result.artworkUrl100.replace('100x100', '600x600');
-
-                try {
-                    const file = await urlToFile(highResUrl, 'cover.jpg', 'image/jpeg');
-                    setFiles(prev => ({
-                        ...prev,
-                        album_cover: file
-                    }));
-                } catch (e) {
-                    console.error("Failed to download cover image", e);
-                }
+                setAlbumCoverUrl(highResUrl);
 
                 alert("Found info! Please verify the details.");
             } else {
@@ -111,7 +100,12 @@ const AdminUpload: React.FC = () => {
 
             if (files.file) uploadData.append('file', files.file);
             if (files.preview_file) uploadData.append('preview_file', files.preview_file);
-            if (files.album_cover) uploadData.append('album_cover', files.album_cover);
+
+            if (files.album_cover) {
+                uploadData.append('album_cover', files.album_cover);
+            } else if (albumCoverUrl) {
+                uploadData.append('album_cover_url', albumCoverUrl);
+            }
 
             await api.post('/admin/upload-track/', uploadData, {
                 headers: {
@@ -327,6 +321,12 @@ const AdminUpload: React.FC = () => {
                                     />
                                     {files.album_cover && (
                                         <p className="text-sm text-gray-400 mt-2">Selected: {files.album_cover.name}</p>
+                                    )}
+                                    {!files.album_cover && albumCoverUrl && (
+                                        <div className="mt-2">
+                                            <p className="text-sm text-gray-400 mb-2">Auto-selected cover:</p>
+                                            <img src={albumCoverUrl} alt="Album Cover Preview" className="w-32 h-32 object-cover rounded-lg" />
+                                        </div>
                                     )}
                                 </div>
                             </div>
