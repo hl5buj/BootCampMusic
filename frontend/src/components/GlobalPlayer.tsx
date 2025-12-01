@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Music } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Music, Rewind, FastForward } from 'lucide-react';
 import { useMusicPlayer } from '../contexts/MusicPlayerContext';
 import { API_BASE_URL } from '../api';
 
@@ -16,6 +16,10 @@ const GlobalPlayer: React.FC = () => {
         setVolume,
         nextTrack,
         previousTrack,
+        skipForward,
+        skipBackward,
+        skipToStart,
+        skipToEnd,
     } = useMusicPlayer();
 
     const progressBarRef = useRef<HTMLDivElement>(null);
@@ -118,13 +122,23 @@ const GlobalPlayer: React.FC = () => {
 
                     {/* Player Controls */}
                     <div className="flex flex-col items-center gap-2">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             <button
-                                onClick={previousTrack}
+                                onClick={skipToStart}
                                 className="text-gray-400 hover:text-white transition"
-                                aria-label="Previous track"
+                                aria-label="Skip to start"
+                                title="Skip to start"
                             >
                                 <SkipBack size={20} />
+                            </button>
+
+                            <button
+                                onClick={() => skipBackward(10)}
+                                className="text-gray-400 hover:text-white transition"
+                                aria-label="Rewind 10 seconds"
+                                title="Rewind 10s"
+                            >
+                                <Rewind size={18} />
                             </button>
 
                             <button
@@ -140,9 +154,19 @@ const GlobalPlayer: React.FC = () => {
                             </button>
 
                             <button
-                                onClick={nextTrack}
+                                onClick={() => skipForward(10)}
                                 className="text-gray-400 hover:text-white transition"
-                                aria-label="Next track"
+                                aria-label="Forward 10 seconds"
+                                title="Forward 10s"
+                            >
+                                <FastForward size={18} />
+                            </button>
+
+                            <button
+                                onClick={skipToEnd}
+                                className="text-gray-400 hover:text-white transition"
+                                aria-label="Skip to end"
+                                title="Skip to end"
                             >
                                 <SkipForward size={20} />
                             </button>

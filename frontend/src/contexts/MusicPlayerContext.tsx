@@ -27,6 +27,10 @@ interface MusicPlayerContextType {
     setVolume: (volume: number) => void;
     nextTrack: () => void;
     previousTrack: () => void;
+    skipForward: (seconds?: number) => void;
+    skipBackward: (seconds?: number) => void;
+    skipToStart: () => void;
+    skipToEnd: () => void;
     playlist: Track[];
     setPlaylist: (tracks: Track[]) => void;
 }
@@ -171,6 +175,30 @@ export const MusicPlayerProvider: React.FC<MusicPlayerProviderProps> = ({ childr
         }
     };
 
+    const skipForward = (seconds: number = 10) => {
+        if (audioRef.current && duration) {
+            const newTime = Math.min(currentTime + seconds, duration);
+            seekTo(newTime);
+        }
+    };
+
+    const skipBackward = (seconds: number = 10) => {
+        if (audioRef.current) {
+            const newTime = Math.max(currentTime - seconds, 0);
+            seekTo(newTime);
+        }
+    };
+
+    const skipToStart = () => {
+        seekTo(0);
+    };
+
+    const skipToEnd = () => {
+        if (audioRef.current && duration) {
+            seekTo(Math.max(duration - 1, 0));
+        }
+    };
+
     const value: MusicPlayerContextType = {
         currentTrack,
         isPlaying,
@@ -185,6 +213,10 @@ export const MusicPlayerProvider: React.FC<MusicPlayerProviderProps> = ({ childr
         setVolume,
         nextTrack,
         previousTrack,
+        skipForward,
+        skipBackward,
+        skipToStart,
+        skipToEnd,
         playlist,
         setPlaylist,
     };

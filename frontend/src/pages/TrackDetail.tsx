@@ -121,22 +121,40 @@ const TrackDetail: React.FC = () => {
                 return;
             }
 
-            const blob = await response.blob();
-            const filename = `${track.artist.name} - ${track.title}.mp3`;
+            const data = await response.json();
 
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.style.display = 'none';
-            link.href = url;
-            link.download = filename;
+            // If backend returns presigned URL, use it directly
+            if (data.download_url) {
+                const link = document.createElement('a');
+                link.href = data.download_url;
+                link.download = data.filename || `${track.artist.name} - ${track.title}`;
+                link.style.display = 'none';
 
-            document.body.appendChild(link);
-            link.click();
+                document.body.appendChild(link);
+                link.click();
 
-            setTimeout(() => {
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
-            }, 100);
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                }, 100);
+            } else {
+                // Fallback to blob download
+                const blob = await response.blob();
+                const filename = data.filename || `${track.artist.name} - ${track.title}.mp3`;
+
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.style.display = 'none';
+                link.href = url;
+                link.download = filename;
+
+                document.body.appendChild(link);
+                link.click();
+
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+            }
 
         } catch (err: any) {
             console.error("Download failed", err);
