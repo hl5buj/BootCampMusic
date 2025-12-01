@@ -47,6 +47,8 @@ const AdminEdit: React.FC = () => {
     });
 
     const [currentCoverUrl, setCurrentCoverUrl] = useState<string | null>(null);
+    const [currentFileUrl, setCurrentFileUrl] = useState<string | null>(null);
+    const [currentPreviewFileUrl, setCurrentPreviewFileUrl] = useState<string | null>(null);
 
     const [files, setFiles] = useState<{
         file: File | null;
@@ -73,6 +75,8 @@ const AdminEdit: React.FC = () => {
                     genre: data.genre || ''
                 });
                 setCurrentCoverUrl(data.album.cover_image || null);
+                setCurrentFileUrl(data.file || null);
+                setCurrentPreviewFileUrl(data.preview_file || null);
                 setLoading(false);
             } catch (err) {
                 console.error('Failed to load track', err);
@@ -356,6 +360,12 @@ const AdminEdit: React.FC = () => {
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium mb-2">Track File (MP3/WAV)</label>
+                                    {!files.file && currentFileUrl && (
+                                        <div className="mb-2 p-3 bg-gray-800 rounded-lg">
+                                            <p className="text-sm text-gray-400">Current file:</p>
+                                            <p className="text-sm text-primary font-mono truncate">{currentFileUrl.split('/').pop()}</p>
+                                        </div>
+                                    )}
                                     <input
                                         type="file"
                                         accept="audio/*"
@@ -363,12 +373,21 @@ const AdminEdit: React.FC = () => {
                                         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-black hover:file:bg-primary/80"
                                     />
                                     {files.file && (
-                                        <p className="text-sm text-gray-400 mt-2">Selected: {files.file.name}</p>
+                                        <p className="text-sm text-green-400 mt-2">New file selected: {files.file.name}</p>
                                     )}
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium mb-2">Preview File (Optional)</label>
+                                    <label className="block text-sm font-medium mb-2">
+                                        Preview File (Optional)
+                                        <span className="text-xs text-gray-500 ml-2">- 30초 미리듣기용</span>
+                                    </label>
+                                    {!files.preview_file && currentPreviewFileUrl && (
+                                        <div className="mb-2 p-3 bg-gray-800 rounded-lg">
+                                            <p className="text-sm text-gray-400">Current preview file:</p>
+                                            <p className="text-sm text-primary font-mono truncate">{currentPreviewFileUrl.split('/').pop()}</p>
+                                        </div>
+                                    )}
                                     <input
                                         type="file"
                                         accept="audio/*"
@@ -376,7 +395,7 @@ const AdminEdit: React.FC = () => {
                                         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-black hover:file:bg-primary/80"
                                     />
                                     {files.preview_file && (
-                                        <p className="text-sm text-gray-400 mt-2">Selected: {files.preview_file.name}</p>
+                                        <p className="text-sm text-green-400 mt-2">New file selected: {files.preview_file.name}</p>
                                     )}
                                 </div>
 

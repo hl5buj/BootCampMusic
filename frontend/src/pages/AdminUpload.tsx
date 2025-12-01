@@ -299,7 +299,10 @@ const AdminUpload: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium mb-2">Preview File (Optional, 30s)</label>
+                                    <label className="block text-sm font-medium mb-2">
+                                        Preview File (Optional)
+                                        <span className="text-xs text-gray-500 ml-2">- 30초 미리듣기용</span>
+                                    </label>
                                     <input
                                         type="file"
                                         accept="audio/*"

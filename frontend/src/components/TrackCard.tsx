@@ -34,12 +34,16 @@ const TrackCard: React.FC<TrackCardProps> = ({ track }) => {
 
     const getAudioUrl = (path: string | null) => {
         if (!path) return null;
-        if (path.startsWith('http')) return path;
-        return `${API_BASE_URL}${path}`;
+        if (path.startsWith('http')) {
+            // Add timestamp to prevent caching
+            return `${path}?t=${Date.now()}`;
+        }
+        return `${API_BASE_URL}${path}?t=${Date.now()}`;
     };
 
     useEffect(() => {
-        const audioSrc = track.file || track.preview_file;
+        // Always use main file, preview_file is only for 30s snippets (not used here)
+        const audioSrc = track.file;
         if (audioSrc) {
             const audio = new Audio(getAudioUrl(audioSrc)!);
             audio.volume = 0.3;
@@ -55,7 +59,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ track }) => {
                 audioRef.current = null;
             }
         };
-    }, [track]);
+    }, [track.file, track.id]);
 
     const handleMouseEnter = () => {
         if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
