@@ -14,8 +14,6 @@ const GlobalPlayer: React.FC = () => {
         togglePlayPause,
         seekTo,
         setVolume,
-        nextTrack,
-        previousTrack,
         skipForward,
         skipBackward,
         skipToStart,
