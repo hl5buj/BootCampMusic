@@ -1,89 +1,44 @@
-version: '3.8'
-
 services:
-  # PostgreSQL Database
-  db:
-    image: postgres:15-alpine
-    container_name: bootcamp_db
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-bootcampmusic}
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - bootcamp_network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
-
-  # Django Backend
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: bootcamp_backend
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py collectstatic --noinput &&
-             gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application"
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
     environment:
-      - DEBUG=${DEBUG:-False}
+      - DEBUG=0
       - SECRET_KEY=${SECRET_KEY}
-      - POSTGRES_DB=${POSTGRES_DB:-bootcampmusic}
-      - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend,takbon.kro.kr,15.165.14.176
+      - CORS_ALLOWED_ORIGINS=http://takbon.kro.kr,http://15.165.14.176:8080,http://localhost:3000
+      - CSRF_TRUSTED_ORIGINS=http://takbon.kro.kr,http://15.165.14.176:8080
+      - POSTGRES_DB=music_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_HOST=db
-      - POSTGRES_PORT=5432
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
-      - USE_S3=${USE_S3:-True}
+      - USE_S3=${USE_S3}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
-      - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME:-ap-northeast-2}
-    ports:
-      - "8000:8000"
+      - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME}
     depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - bootcamp_network
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+      - db
 
-  # React Frontend
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
-    container_name: bootcamp_frontend
+    build: ./frontend
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - backend
-    networks:
-      - bootcamp_network
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=music_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
 volumes:
   postgres_data:
-
-networks:
-  bootcamp_network:
-    driver: bridge
-
