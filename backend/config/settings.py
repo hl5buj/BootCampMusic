@@ -29,11 +29,11 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS", "localhost,127.0.0.1,takbon.kro.kr,15.165.14.176"
+    "ALLOWED_HOSTS", "localhost,127.0.0.1,takbon.kro.kr,www.takbon.kro.kr,15.165.14.176"
 ).split(",")
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
-    "CSRF_TRUSTED_ORIGINS", "http://localhost:3000,http://takbon.kro.kr,http://15.165.14.176"
+    "CSRF_TRUSTED_ORIGINS", "http://localhost:3000,http://takbon.kro.kr,http://www.takbon.kro.kr,https://takbon.kro.kr,https://www.takbon.kro.kr,http://15.165.14.176"
 ).split(",")
 
 # Application definition
@@ -201,8 +201,8 @@ AUTH_USER_MODEL = "users.User"
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Only in development
 if not DEBUG:
     CORS_ALLOWED_ORIGINS = os.environ.get(
-        'CORS_ALLOWED_ORIGINS', 
-        'http://localhost:3000,http://takbon.kro.kr,http://15.165.14.176'
+        'CORS_ALLOWED_ORIGINS',
+        'http://localhost:3000,http://takbon.kro.kr,http://www.takbon.kro.kr,https://takbon.kro.kr,https://www.takbon.kro.kr,http://15.165.14.176'
     ).split(',')
 
 # Django REST Framework
