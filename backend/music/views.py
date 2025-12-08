@@ -65,9 +65,16 @@ class DownloadTrackView(APIView):
             try:
                 # Get original file extension
                 import os
+                from urllib.parse import quote
+                
                 original_filename = track.file.name
                 file_extension = os.path.splitext(original_filename)[1] or '.mp3'
-                download_filename = f"{track.artist.name} - {track.title}{file_extension}"
+                
+                # Make safe filename for download (handle korean/special chars)
+                safe_artist = track.artist.name.replace('/', '_').replace('\\', '_')
+                safe_title = track.title.replace('/', '_').replace('\\', '_')
+                download_filename = f"{safe_artist} - {safe_title}{file_extension}"
+                encoded_filename = quote(download_filename)
 
                 # For S3 storage, generate presigned URL
                 from django.conf import settings
@@ -84,13 +91,22 @@ class DownloadTrackView(APIView):
                         config=Config(signature_version='s3v4')
                     )
 
+                    # Construct S3 Key safely
+                    s3_key = track.file.name
+                    # If AWS_LOCATION is set (e.g. 'media') and key doesn't start with it, prepend it
+                    if hasattr(settings, 'AWS_LOCATION') and settings.AWS_LOCATION:
+                        location = settings.AWS_LOCATION
+                        if not s3_key.startswith(f"{location}/"):
+                            s3_key = f"{location}/{s3_key}"
+
                     # Generate presigned URL valid for 1 hour
+                    # Use encoded filename for Content-Disposition
                     presigned_url = s3_client.generate_presigned_url(
                         'get_object',
                         Params={
                             'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
-                            'Key': f"media/{track.file.name}",
-                            'ResponseContentDisposition': f'attachment; filename="{download_filename}"'
+                            'Key': s3_key,
+                            'ResponseContentDisposition': f'attachment; filename="{download_filename}"; filename*=UTF-8\'\'{encoded_filename}'
                         },
                         ExpiresIn=3600
                     )
@@ -107,7 +123,6 @@ class DownloadTrackView(APIView):
                         filename=download_filename
                     )
                     response["Access-Control-Allow-Origin"] = "*"
-                    response["Access-Control-Allow-Credentials"] = "true"
                     return response
 
             except FileNotFoundError:
@@ -119,6 +134,7 @@ class DownloadTrackView(APIView):
                 import logging
                 logger = logging.getLogger(__name__)
                 logger.error(f"Download failed: {str(e)}", exc_info=True)
+                # Return 500 error as JSON so frontend can handle it gracefully instead of crashing on .json()
                 return Response(
                     {"error": f"Download failed: {str(e)}"},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
