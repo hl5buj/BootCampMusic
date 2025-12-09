@@ -59,90 +59,55 @@ class DownloadTrackView(APIView):
 
         # Log download
         DownloadLog.objects.create(user=request.user, track=track)
-
-        # Serve file
-        if track.file:
-            try:
-                # Get original file extension
-                import os
-                from urllib.parse import quote
-                
-                original_filename = track.file.name
-                file_extension = os.path.splitext(original_filename)[1] or '.mp3'
-                
-                # Make safe filename for download (handle korean/special chars)
-                safe_artist = track.artist.name.replace('/', '_').replace('\\', '_')
-                safe_title = track.title.replace('/', '_').replace('\\', '_')
-                download_filename = f"{safe_artist} - {safe_title}{file_extension}"
-                encoded_filename = quote(download_filename)
-
-                # For S3 storage, generate presigned URL
-                from django.conf import settings
-                if hasattr(settings, 'USE_S3') and settings.USE_S3:
-                    # Generate presigned URL for direct S3 download
-                    import boto3
-                    from botocore.config import Config
-
-                    s3_client = boto3.client(
-                        's3',
-                        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                        region_name=settings.AWS_S3_REGION_NAME,
-                        config=Config(signature_version='s3v4')
-                    )
-
-                    # Construct S3 Key safely
-                    s3_key = track.file.name
-                    # If AWS_LOCATION is set (e.g. 'media') and key doesn't start with it, prepend it
-                    if hasattr(settings, 'AWS_LOCATION') and settings.AWS_LOCATION:
-                        location = settings.AWS_LOCATION
-                        if not s3_key.startswith(f"{location}/"):
-                            s3_key = f"{location}/{s3_key}"
-
-                    # Generate presigned URL valid for 1 hour
-                    # Use encoded filename for Content-Disposition
-                    presigned_url = s3_client.generate_presigned_url(
-                        'get_object',
-                        Params={
-                            'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
-                            'Key': s3_key,
-                            'ResponseContentDisposition': f'attachment; filename="{download_filename}"; filename*=UTF-8\'\'{encoded_filename}'
-                        },
-                        ExpiresIn=3600
-                    )
-
-                    return Response({
-                        "download_url": presigned_url,
-                        "filename": download_filename
-                    })
-                else:
-                    # For local storage, use FileResponse
-                    response = FileResponse(
-                        track.file.open(),
-                        as_attachment=True,
-                        filename=download_filename
-                    )
-                    response["Access-Control-Allow-Origin"] = "*"
-                    return response
-
-            except FileNotFoundError:
+        
+        try:
+            if not track.file:
                 return Response(
-                    {"error": "File not found on server"},
+                    {"error": "No file associated with this track"},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            except Exception as e:
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.error(f"Download failed: {str(e)}", exc_info=True)
-                # Return 500 error as JSON so frontend can handle it gracefully instead of crashing on .json()
-                return Response(
-                    {"error": f"Download failed: {str(e)}"},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
-        return Response(
-            {"error": "No file associated with this track"},
-            status=status.HTTP_404_NOT_FOUND
-        )
+
+            # Get filename and extension
+            import os
+            from django.http import StreamingHttpResponse
+            from urllib.parse import quote
+            
+            original_filename = track.file.name
+            file_extension = os.path.splitext(original_filename)[1] or '.mp3'
+            
+            # Make safe filename for download (handle korean/special chars)
+            safe_artist = track.artist.name.replace('/', '_').replace('\\', '_')
+            safe_title = track.title.replace('/', '_').replace('\\', '_')
+            download_filename = f"{safe_artist} - {safe_title}{file_extension}"
+            
+            # URLEncode filename for Content-Disposition header (RFC 5987)
+            encoded_filename = quote(download_filename)
+
+            # Open the file handler (works for both Local and S3 via django-storages)
+            file_handle = track.file.open('rb')
+
+            # Create StreamingHttpResponse
+            response = StreamingHttpResponse(file_handle, content_type='application/octet-stream')
+            
+            # Set Content-Disposition header correctly for all browsers
+            response['Content-Disposition'] = f"attachment; filename*=UTF-8''{encoded_filename}"
+            response["Access-Control-Allow-Origin"] = "*"
+            
+            return response
+
+        except FileNotFoundError:
+            return Response(
+                {"error": "File not found on server"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Download failed: {str(e)}", exc_info=True)
+            return Response(
+                {"error": "Download failed. Please try again later."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
