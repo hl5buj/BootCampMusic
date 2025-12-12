@@ -16,12 +16,12 @@ if not User.objects.filter(username='admin').exists():
     User.objects.create_superuser(
         username='admin',
         email='admin@musicdown.com',
-        password='admin123'
+        password='adminpassword'
     )
     print("✅ Superuser created successfully!")
     print("Username: admin")
-    print("Password: admin123")
+    print("Password: adminpassword")
 else:
     print("ℹ️  Superuser 'admin' already exists")
     print("Username: admin")
-    print("Password: admin123")
+    print("Password: adminpassword")
